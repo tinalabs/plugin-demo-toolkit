@@ -1,0 +1,10 @@
+{
+  "version": "v1",
+  "packages": {
+    "next-tinacms-doc-toolkit": {
+      "signature": "e442bf7bf804b36e4f6641f24c9f033a",
+      "file": true,
+      "replaced": "../next-toolkit"
+    }
+  }
+}
