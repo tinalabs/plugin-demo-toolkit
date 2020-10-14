@@ -5,10 +5,21 @@ import React, { useState } from "react";
 import { Container, Columns, Column } from "bloomer";
 import { Button } from "bloomer/lib/elements/Button";
 import Code from "./Code.js";
+import { NavItem } from "./NavItem";
+import { LayoutProps } from "../interfaces";
 
-export const Layout = ({ children, nextLink, prevLink, code }: any) => {
+export const Layout: React.FC<LayoutProps> = ({ config, currentSlug }) => {
   //   const cms = useCMS();
   const [showCode, setVisibility] = useState(false);
+  const foundPage = config.pages.find((page) => page.slug === currentSlug);
+  if (!foundPage) {
+    throw Error(`did not find page with slug ${currentSlug}`);
+  }
+  const currentPage = foundPage;
+  const currentIndex = config.pages.findIndex((page) => page === currentPage);
+  const ChildComponent = currentPage.Component;
+  const { LinkWrapper, title } = config;
+
   return (
     <Container
       style={{
@@ -23,10 +34,10 @@ export const Layout = ({ children, nextLink, prevLink, code }: any) => {
         <Column isSize="3/4">
           <h1 className="title is-1">
             {/* <Link to="/" className="has-text-black"> */}
-            <div className="has-text-black">TinaCMS i18n Example</div>
+            <div className="has-text-black">{title}</div>
             {/* </Link> */}
           </h1>
-          {children}
+          <ChildComponent />
           <div style={{ marginRight: "0px", marginTop: "40px" }}>
             <div
               style={{
@@ -36,7 +47,7 @@ export const Layout = ({ children, nextLink, prevLink, code }: any) => {
                 justifyContent: "space-between",
               }}
             >
-              {prevLink && (
+              {config.pages[currentIndex - 1] && (
                 // <Link to={prevLink}>
                 <Button type="button" className="button is-small">
                   Previous
@@ -51,7 +62,7 @@ export const Layout = ({ children, nextLink, prevLink, code }: any) => {
               >
                 Toggle Edit Mode
               </Button> */}
-              {code && (
+              {currentPage.code && (
                 <Button
                   type="button"
                   className="button is-small"
@@ -63,7 +74,7 @@ export const Layout = ({ children, nextLink, prevLink, code }: any) => {
                 </Button>
               )}
 
-              {nextLink && (
+              {config.pages[currentIndex + 1] && (
                 // <Link to={nextLink}>
                 <Button type="button" className="button is-small">
                   Next
@@ -71,7 +82,7 @@ export const Layout = ({ children, nextLink, prevLink, code }: any) => {
                 // </Link>
               )}
             </div>
-            <Code show={showCode}>{code}</Code>
+            <Code show={showCode}>{currentPage.code || ""}</Code>
           </div>
         </Column>
 
@@ -82,22 +93,16 @@ export const Layout = ({ children, nextLink, prevLink, code }: any) => {
             {/* TODO: make this list from the config */}
             {/* <NavItem to="/">
               <li>Welcome</li>
-            </NavItem>
-            <NavItem to="/setup">
-              <li>Register the API</li>
-            </NavItem>
-            <NavItem to="/translations">
-              <li>Make Translations</li>
-            </NavItem>
-            <NavItem to="/switch-locale">
-              <li>Switching Locales</li>
-            </NavItem>
-            <NavItem to="/using-prompts">
-              <li>Using Prompts</li>
-            </NavItem>
-            <NavItem to="/whats-next">
-              <li>Whats Next?</li>
             </NavItem> */}
+            {config.pages.map((page) => {
+              return (
+                <NavItem to={page.slug} key={page.slug}>
+                  <LinkWrapper to={page.slug}>
+                    <li>{page.label}</li>
+                  </LinkWrapper>
+                </NavItem>
+              );
+            })}
           </ol>
         </Column>
       </Columns>

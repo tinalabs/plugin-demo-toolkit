@@ -8,7 +8,7 @@ SyntaxHighlighter.registerLanguage("jsx", jsx);
 export default function Code(props: {
   show?: boolean;
   readMoreLink?: string;
-  children: JSX.Element;
+  children: string;
   readMoreText?: string;
 }) {
   return (

@@ -8,6 +8,7 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "bulma": "^0.9.1",
     "next": "latest",
     "next-tinacms-doc-toolkit": "file:.yalc/next-tinacms-doc-toolkit",
     "react": "^16.13.1",
