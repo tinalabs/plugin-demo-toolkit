@@ -15,10 +15,10 @@ export interface DocumentConfig {
 interface BasePage {
   label: string;
   slug: string;
-  code?: string;
-  Component: React.FC;
+  filePath: string;
 }
 export interface LayoutProps {
   config: DocumentConfig;
   currentSlug: string;
+  loadComponent: (name: string) => any;
 }

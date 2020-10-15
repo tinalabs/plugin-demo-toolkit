@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 // import { useCMS } from "tinacms";
 
 // import NavItem from "../components/Nav.js";
@@ -8,17 +8,51 @@ import Code from "./Code.js";
 import { NavItem } from "./NavItem";
 import { LayoutProps } from "../interfaces";
 
-export const Layout: React.FC<LayoutProps> = ({ config, currentSlug }) => {
+// export const LoadComponent = async (fileName: string) => {
+//   try {
+//     const component = await import(`../docs/${fileName}.tsx`);
+//     return component;
+//   } catch (e) {
+//     console.error(`${fileName} was not found`);
+//     console.error(e);
+//     throw e;
+//   }
+// };
+
+export const Layout: React.FC<LayoutProps> = ({
+  config,
+  currentSlug,
+  loadComponent,
+}) => {
   //   const cms = useCMS();
+  const [loading, setLoading] = useState(true);
   const [showCode, setVisibility] = useState(false);
+  const [Component, setComponent] = useState(undefined as any);
   const foundPage = config.pages.find((page) => page.slug === currentSlug);
   if (!foundPage) {
     throw Error(`did not find page with slug ${currentSlug}`);
   }
   const currentPage = foundPage;
   const currentIndex = config.pages.findIndex((page) => page === currentPage);
-  const ChildComponent = currentPage.Component;
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const { LinkWrapper, title } = config;
+
+  useEffect(() => {
+    const callLoadComponent = async () => {
+      setLoading(true);
+      const c = await loadComponent(currentPage.filePath);
+      if (c.default) {
+        setComponent(c);
+      }
+      setLoading(false);
+    };
+    callLoadComponent();
+  }, [foundPage.filePath]);
+
+  if (loading) {
+    return <div>Loading</div>;
+  }
+  // const RenderedComponent = Component.default;
 
   return (
     <Container
@@ -37,7 +71,7 @@ export const Layout: React.FC<LayoutProps> = ({ config, currentSlug }) => {
             <div className="has-text-black">{title}</div>
             {/* </Link> */}
           </h1>
-          <ChildComponent />
+          <Component.default />
           <div style={{ marginRight: "0px", marginTop: "40px" }}>
             <div
               style={{
@@ -62,7 +96,7 @@ export const Layout: React.FC<LayoutProps> = ({ config, currentSlug }) => {
               >
                 Toggle Edit Mode
               </Button> */}
-              {currentPage.code && (
+              {Component.code && (
                 <Button
                   type="button"
                   className="button is-small"
@@ -82,7 +116,7 @@ export const Layout: React.FC<LayoutProps> = ({ config, currentSlug }) => {
                 // </Link>
               )}
             </div>
-            <Code show={showCode}>{currentPage.code || ""}</Code>
+            <Code show={showCode}>{Component.code.toString() || ""}</Code>
           </div>
         </Column>
 

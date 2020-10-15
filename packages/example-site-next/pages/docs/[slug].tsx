@@ -6,6 +6,17 @@ import { DocumentConfig } from 'next-tinacms-doc-toolkit/build/interfaces'
 
 const Test = ()=><div>this is a test</div>
 
+export const loadComponent = async (fileName: string) => {
+  try {
+    const component = await import(`../../docs/${fileName}.tsx`);
+    return component;
+  } catch (e) {
+    console.error(`${fileName} was not found`);
+    console.error(e);
+    throw e;
+  }
+};
+
 const CONFIG: DocumentConfig = {
     LinkWrapper: ({to, children})=>{
       if(to==='/'){
@@ -15,20 +26,18 @@ const CONFIG: DocumentConfig = {
     },
     title: 'this is a test',
     pages: [
-        { Component: Test, label: 'page 1',  slug: '/', code: 'let test = \'asdaf\''},
-        { Component: Test, label: 'page 2',  slug: '/page-2', code: 'let test = \'page 2\''},
-        { Component: Test, label: 'page 3',  slug: '/page-3'},
-        { Component: Test, label: 'page 4',  slug: '/page-4'}
+        { filePath: "pageOne" ,label: 'page 1',  slug: '/', },
+        { filePath: "pageTwo" , label: 'page 2',  slug: '/page-2',},
     ] 
   }
 const IndexPage = () => {
   const router = useRouter()
   const currentSlug = router.query.slug as string
   console.log({currentSlug })
-  if(router.isFallback){
+  if(router.isFallback || !currentSlug){
       return <div>Loading...</div>
   }
-  return <Layout currentSlug={'/'+currentSlug} config={CONFIG}/>
+  return <Layout currentSlug={'/'+currentSlug} config={CONFIG} loadComponent={loadComponent}/>
 }
 
 

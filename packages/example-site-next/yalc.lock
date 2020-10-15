@@ -2,7 +2,7 @@
   "version": "v1",
   "packages": {
     "next-tinacms-doc-toolkit": {
-      "signature": "722603a08699ccb183200036e00eb01d",
+      "signature": "553ad15cb1d1a990dd8c84d86f8a8506",
       "file": true,
       "replaced": "../next-toolkit"
     }
