@@ -1,5 +1,4 @@
 const path = require("path");
-console.log('running config')
 const config = {
   webpack(config) {
     config.resolve.alias["react"] = path.resolve(
@@ -12,6 +11,10 @@ const config = {
     );
     return config;
   },
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx']
 };
 
-module.exports = config;
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/
+})
+module.exports = withMDX(config)

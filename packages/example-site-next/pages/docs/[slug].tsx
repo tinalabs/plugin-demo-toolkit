@@ -4,11 +4,9 @@ import {useRouter} from 'next/router'
 import { Layout } from 'next-tinacms-doc-toolkit'
 import { DocumentConfig } from 'next-tinacms-doc-toolkit/build/interfaces'
 
-const Test = ()=><div>this is a test</div>
-
 export const loadComponent = async (fileName: string) => {
   try {
-    const component = await import(`../../docs/${fileName}.tsx`);
+    const component = await import(`../../docs/${fileName}.mdx`);
     return component;
   } catch (e) {
     console.error(`${fileName} was not found`);
@@ -17,7 +15,7 @@ export const loadComponent = async (fileName: string) => {
   }
 };
 
-const CONFIG: DocumentConfig = {
+export const CONFIG: DocumentConfig = {
     LinkWrapper: ({to, children})=>{
       if(to==='/'){
           return <Link href={`/docs`} as={`/docs`}>{children}</Link>
@@ -29,7 +27,7 @@ const CONFIG: DocumentConfig = {
         { filePath: "pageOne" ,label: 'page 1',  slug: '/', },
         { filePath: "pageTwo" , label: 'page 2',  slug: '/page-2',},
     ] 
-  }
+}
 const IndexPage = () => {
   const router = useRouter()
   const currentSlug = router.query.slug as string

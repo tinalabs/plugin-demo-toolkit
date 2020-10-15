@@ -8,6 +8,8 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "@mdx-js/loader": "^1.6.18",
+    "@next/mdx": "^9.5.5",
     "bulma": "^0.9.1",
     "next": "latest",
     "next-tinacms-doc-toolkit": "file:.yalc/next-tinacms-doc-toolkit",
