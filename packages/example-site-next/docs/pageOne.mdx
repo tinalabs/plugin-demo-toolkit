@@ -1,9 +1,18 @@
+import {useCMS} from 'tinacms'
 export const Test = ()=>{
+    const cms = useCMS()
+    console.log({cms})
     return (<div>This is the first page</div>)
 }
 
 # Hello this is some mdx text
 
 > Page One
+
+<div>
+    <Test/>
+    this is a test
+</div>
+
 
 export const code = Test.toString()

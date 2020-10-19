@@ -3,7 +3,6 @@ import {useRouter} from 'next/router'
 // import Layout from '../components/Layout'
 import { Layout } from 'next-tinacms-doc-toolkit'
 import { DocumentConfig } from 'next-tinacms-doc-toolkit/build/interfaces'
-
 export const loadComponent = async (fileName: string) => {
   try {
     const component = await import(`../../docs/${fileName}.mdx`);
@@ -26,7 +25,15 @@ export const CONFIG: DocumentConfig = {
     pages: [
         { filePath: "pageOne" ,label: 'page 1',  slug: '/', },
         { filePath: "pageTwo" , label: 'page 2',  slug: '/page-2',},
-    ] 
+        { filePath: "pageTwo" , label: 'page 2',  slug: '/page-3',},
+        { filePath: "pageTwo" , label: 'page 2',  slug: '/page-4',},
+        { filePath: "pageTwo" , label: 'page 2',  slug: '/page-5',},
+        { filePath: "pageTwo" , label: 'page 2',  slug: '/page-6',},
+    ],
+    tinaConfig: {
+      enabled:true,
+      sidebar: true
+    }
 }
 const IndexPage = () => {
   const router = useRouter()
@@ -35,7 +42,9 @@ const IndexPage = () => {
   if(router.isFallback || !currentSlug){
       return <div>Loading...</div>
   }
-  return <Layout currentSlug={'/'+currentSlug} config={CONFIG} loadComponent={loadComponent}/>
+  return <Layout currentSlug={'/'+currentSlug} config={CONFIG} loadComponent={loadComponent}>
+    {}
+    </Layout>
 }
 
 
