@@ -1,5 +1,3 @@
-import Link from 'next/link'
-// import Layout from '../components/Layout'
 import { Layout } from 'next-tinacms-doc-toolkit'
 import {CONFIG} from './docs/[slug]'
 
