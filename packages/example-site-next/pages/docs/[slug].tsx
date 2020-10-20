@@ -1,8 +1,6 @@
 import Link from 'next/link'
 import {useRouter} from 'next/router'
-// import Layout from '../components/Layout'
-import { Layout } from 'next-tinacms-doc-toolkit'
-import { DocumentConfig } from 'next-tinacms-doc-toolkit/build/interfaces'
+import { Layout, DocumentConfig } from 'next-tinacms-doc-toolkit'
 export const loadComponent = async (fileName: string) => {
   try {
     const component = await import(`../../docs/${fileName}.mdx`);
@@ -21,31 +19,28 @@ export const CONFIG: DocumentConfig = {
       }
       return <Link href={`/docs/[slug]`} as={`/docs${to}`}>{children}</Link>
     },
-    title: 'this is a test',
+    title: 'Tinacms Documentation Toolkit Docs',
     pages: [
-        { filePath: "pageOne" ,label: 'page 1',  slug: '/', },
-        { filePath: "pageTwo" , label: 'page 2',  slug: '/page-2',},
-        { filePath: "pageTwo" , label: 'page 2',  slug: '/page-3',},
-        { filePath: "pageTwo" , label: 'page 2',  slug: '/page-4',},
-        { filePath: "pageTwo" , label: 'page 2',  slug: '/page-5',},
-        { filePath: "pageTwo" , label: 'page 2',  slug: '/page-6',},
+        { filePath: "Intro" ,label: 'Intro',  slug: '/', },
+        { filePath: "GettingStarted" , label: 'Getting started',  slug: '/intro',},
+        { filePath: "LoadComponent" , label: 'Load Component',  slug: '/load-component',},
+        { filePath: "Config" , label: 'Config',  slug: '/config',},
+        { filePath: "MdxFiles" , label: 'MDX Files',  slug: '/mdx-files',},
+        { filePath: "TinaConfig" , label: 'Tina Config',  slug: '/tina-config',},
     ],
     tinaConfig: {
-      enabled:true,
-      sidebar: true
+      enabled: false,
     }
 }
-const IndexPage = () => {
+const SlugPage = () => {
   const router = useRouter()
   const currentSlug = router.query.slug as string
   console.log({currentSlug })
   if(router.isFallback || !currentSlug){
       return <div>Loading...</div>
   }
-  return <Layout currentSlug={'/'+currentSlug} config={CONFIG} loadComponent={loadComponent}>
-    {}
-    </Layout>
+  return <Layout currentSlug={'/'+currentSlug} config={CONFIG} loadComponent={loadComponent}/>
 }
 
 
-export default IndexPage
+export default SlugPage

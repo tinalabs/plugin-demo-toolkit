@@ -11,7 +11,6 @@ export const loadComponent = async (fileName: string) => {
     throw e;
   }
 }
-// import Asdf from  '../docs/pageOne.mdx'
   const IndexPage = () => {
     return <Layout currentSlug={'/'} config={CONFIG} loadComponent={loadComponent}/>
   }

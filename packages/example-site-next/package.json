@@ -1,5 +1,5 @@
 {
-  "name": "with-typescript",
+  "name": "example-site-next",
   "version": "1.0.0",
   "scripts": {
     "dev": "next",

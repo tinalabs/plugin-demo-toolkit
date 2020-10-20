@@ -1,0 +1,53 @@
+# `LoadComponent` Function
+
+First we will add the async `LoadComponet Fuction`. This Function will be passed to the layout. It takes in a file name as a paramter and returns the imported file.
+
+For next the fuction could look like this depending on your folder structor
+```js
+export const loadComponent = async (fileName: string) => {
+  try {
+    const component = await import(`../../docs/${fileName}.mdx`);
+    return component;
+  } catch (e) {
+    console.error(`${fileName} was not found`);
+    console.error(e);
+    throw e;
+  }
+};
+```
+
+adding this your slug page could look like this
+
+```js
+export const loadComponent = async (fileName: string) => {
+  try {
+    const component = await import(`../../docs/${fileName}.mdx`);
+    return component;
+  } catch (e) {
+    console.error(`${fileName} was not found`);
+    console.error(e);
+    throw e;
+  }
+};
+
+const SlugPage = () => {
+  const router = useRouter()
+  const currentSlug = router.query.slug as string
+  console.log({currentSlug })
+  if(router.isFallback || !currentSlug){
+      return <div>Loading...</div>
+  }
+  return <Layout currentSlug={'/'+currentSlug} config={CONFIG} loadComponent={loadComponent}/>
+}
+
+
+export default SlugPage
+```
+
+But we are still missing the `CONFIG`
+
+export const TinaConfig = {
+    enabled: false
+}
+
+export const code = ''
