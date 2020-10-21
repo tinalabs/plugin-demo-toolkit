@@ -7,7 +7,6 @@
 
 import { TinaCMSConfig } from "tinacms";
 
-export type Page = BasePage;
 export interface DocumentConfig {
   pages: Page[];
   title: string;
@@ -16,7 +15,7 @@ export interface DocumentConfig {
   tinaConfig?: TinaCMSConfig;
 }
 
-interface BasePage {
+export interface Page {
   label: string;
   slug: string;
   filePath: string;

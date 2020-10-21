@@ -1,6 +1,6 @@
 import React from "react";
 
-export const NavItem = (props: any) => {
+export const NavItem: React.FC<{ active: boolean }> = (props) => {
   const styles = {} as React.CSSProperties;
   if (props.active) {
     styles.fontWeight = "bold";

@@ -2,6 +2,7 @@ import {useCMS} from 'tinacms'
 export const Test = ()=>{
     const cms = useCMS()
     console.log({cms})
+    cms.api.user.sayHi()
     return (<div>This is the first page</div>)
 }
 
@@ -11,11 +12,27 @@ export const Test = ()=>{
 
 This short guide will help you get up and running with our Documetion toolkits
 
+
+export class User {
+  constructor(name) {
+    this.name = name;
+  }
+  sayHi() {
+    alert('Hello! ' + this.name);
+  }
+}
+
 export const TinaConfig = {
-    enabled: false
+    enabled: false,
+    toolbar: true,
+    sidebar: true,
+    apis: {
+        user: new User('logan')
+    }
 }
 
 export const code = `
+let x = 'this is a test'
 # Hello 👋  and welcome to the Tinacms Documetion toolkit Docs
 > (Wow thats a mouthfull)
 This short guide will help you get up and running with our Documetion toolkits

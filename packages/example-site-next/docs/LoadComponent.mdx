@@ -3,7 +3,7 @@
 First we will add the async `LoadComponet Fuction`. This Function will be passed to the layout. It takes in a file name as a paramter and returns the imported file.
 
 For next the fuction could look like this depending on your folder structor
-```js
+```js render=true
 export const loadComponent = async (fileName: string) => {
   try {
     const component = await import(`../../docs/${fileName}.mdx`);
@@ -43,8 +43,22 @@ const SlugPage = () => {
 
 export default SlugPage
 ```
+For this to work we need to add the mdx loader to our next project. Thankfully this is pretty simple. 
+`yarn add @next/mdx @mdx-js/loader`
+edit next.config.js to look like this
 
-But we are still missing the `CONFIG`
+```js
+const config = {
+  //.. old config
+};
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/
+})
+module.exports = withMDX(config)
+```
+
+
+Now mdx is all setup but we are still missing the `CONFIG` for our project
 
 export const TinaConfig = {
     enabled: false

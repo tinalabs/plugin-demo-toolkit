@@ -107,7 +107,10 @@ export const Layout: React.FC<LayoutProps> = ({
             <ol style={{ marginTop: 20 }}>
               {config.pages.map((page) => {
                 return (
-                  <NavItem to={page.slug} key={page.slug}>
+                  <NavItem
+                    active={page.slug === currentPage.slug}
+                    key={page.slug}
+                  >
                     <LinkWrapper to={page.slug}>
                       <li>{page.label}</li>
                     </LinkWrapper>
