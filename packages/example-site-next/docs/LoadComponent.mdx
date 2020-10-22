@@ -3,7 +3,7 @@
 First we will add the async `LoadComponet Fuction`. This Function will be passed to the layout. It takes in a file name as a paramter and returns the imported file.
 
 For next the fuction could look like this depending on your folder structor
-```js render=true
+```jss
 export const loadComponent = async (fileName: string) => {
   try {
     const component = await import(`../../docs/${fileName}.mdx`);

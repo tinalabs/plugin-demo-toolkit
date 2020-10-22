@@ -3,7 +3,7 @@ import {useRouter} from 'next/router'
 import { Layout, DocumentConfig } from 'next-tinacms-doc-toolkit'
 export const loadComponent = async (fileName: string) => {
   try {
-    const component = await import(`../../docs/${fileName}.mdx`);
+    const component = await import(`../docs/${fileName}.mdx`);
     return component;
   } catch (e) {
     console.error(`${fileName} was not found`);
@@ -15,9 +15,9 @@ export const loadComponent = async (fileName: string) => {
 export const CONFIG: DocumentConfig = {
     LinkWrapper: ({to, children})=>{
       if(to==='/'){
-          return <Link href={`/docs`} as={`/docs`}>{children}</Link>
+          return <Link href={`/`} as={`/`}>{children}</Link>
       }
-      return <Link href={`/docs/[slug]`} as={`/docs${to}`}>{children}</Link>
+      return <Link href={`/[slug]`} as={`${to}`}>{children}</Link>
     },
     title: 'Tinacms Documentation Toolkit Docs',
     pages: [

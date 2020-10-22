@@ -1,0 +1,61 @@
+import {useCMS} from 'tinacms'
+export const Test = ()=>{
+    const cms = useCMS()
+    console.log({cms})
+    cms.api.user.sayHi()
+    return (<div>This is the first page</div>)
+}
+
+export class User {
+  constructor(name) {
+    this.name = name;
+  }
+  sayHi() {
+    alert('Hello! ' + this.name);
+  }
+}
+
+export const TinaConfig = {
+    enabled: false,
+    toolbar: true,
+    sidebar: true,
+    apis: {
+        user: new User('logan')
+    }
+}
+
+export const code = ``
+
+# The cms Object
+
+In many cases you might want to edit or add to the cms object. Since tina is already setup for us this is really easy to to. First lets make a simple api to use as a test then lets add it to this pages tina config. Then we can access the cms object in a in a react component. (In this case its called test). Putting it all together looks like this.
+
+```js
+import {useCMS} from 'tinacms'
+export const Test = ()=>{
+    const cms = useCMS()
+    console.log({cms})
+    cms.api.user.sayHi()
+    return (<div>This is the first page</div>)
+}
+
+export class User {
+  constructor(name) {
+    this.name = name;
+  }
+  sayHi() {
+    alert('Hello! ' + this.name);
+  }
+}
+
+export const TinaConfig = {
+    enabled: false,
+    toolbar: true,
+    sidebar: true,
+    apis: {
+        user: new User('logan')
+    }
+}
+```
+Now add the Test compoent somewere in your mdx file and it should work.
+

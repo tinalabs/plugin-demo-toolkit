@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-// import { useCMS } from "tinacms";
-
 import { Container, Columns, Column } from "bloomer";
 import { Button } from "bloomer/lib/elements/Button";
 import Code from "./Code.js";
@@ -8,6 +6,13 @@ import { NavItem } from "./NavItem";
 import { LayoutProps } from "../interfaces";
 import { useGetComponent } from "../hooks";
 import { TinaCMS, TinaCMSConfig, TinaProvider } from "tinacms";
+import { CodeBlock } from "./CodeBlock";
+import { MDXProvider } from "@mdx-js/react";
+const PreBlock = (props: any) => <div {...props} />;
+export const MDXComponents = {
+  pre: PreBlock,
+  code: CodeBlock,
+};
 
 export const Layout: React.FC<LayoutProps> = ({
   config,
@@ -36,6 +41,7 @@ export const Layout: React.FC<LayoutProps> = ({
   const cms = new TinaCMS({ ...config.tinaConfig, ...pageTinaConfig });
 
   return (
+    // <MDXProvider components={components}>
     <TinaProvider cms={cms}>
       <Container
         style={{
@@ -122,5 +128,6 @@ export const Layout: React.FC<LayoutProps> = ({
         </Columns>
       </Container>
     </TinaProvider>
+    // </MDXProvider>
   );
 };
