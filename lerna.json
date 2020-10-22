@@ -2,5 +2,13 @@
   "packages": [
     "packages/*"
   ],
-  "version": "0.0.0"
+  "command": {
+    "publish": {
+      "ignoreChanges": ["packages/example-*"]
+    },
+    "run": {
+      "ignore": []
+    }
+  },
+  "version": "0.0.1"
 }
