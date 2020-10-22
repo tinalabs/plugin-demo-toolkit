@@ -1,5 +1,5 @@
 {
-  "name": "next-tinacms-doc-toolkit",
+  "name": "tinacms-doc-toolkit",
   "version": "0.1.0",
   "description": "",
   "main": "build/index.js",

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import {useRouter} from 'next/router'
-import { Layout, DocumentConfig } from 'next-tinacms-doc-toolkit'
+import { Layout, DocumentConfig } from 'tinacms-doc-toolkit'
 export const loadComponent = async (fileName: string) => {
   try {
     const component = await import(`../docs/${fileName}.mdx`);

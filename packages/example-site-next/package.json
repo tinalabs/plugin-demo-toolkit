@@ -14,13 +14,13 @@
     "@next/mdx": "^9.5.5",
     "bulma": "^0.9.1",
     "next": "latest",
-    "next-tinacms-doc-toolkit": "file:../next-toolkit",
     "prism-react-renderer": "^1.1.1",
     "react": "^16.13.1",
     "react-dom": "^16.12.0",
     "remark-highlight.js": "^6.0.0",
     "styled-components": "^5.2.0",
-    "tinacms": "^0.31.0"
+    "tinacms": "^0.31.0",
+    "tinacms-doc-toolkit": "file:../next-toolkit"
   },
   "devDependencies": {
     "@types/mdx-js__react": "^1.5.3",

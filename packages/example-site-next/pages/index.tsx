@@ -1,4 +1,4 @@
-import { Layout } from 'next-tinacms-doc-toolkit'
+import { Layout } from 'tinacms-doc-toolkit'
 import {CONFIG} from './[slug]'
 import {loadComponent} from './[slug]'
   const IndexPage = () => {
