@@ -4,11 +4,13 @@
   ],
   "command": {
     "publish": {
-      "ignoreChanges": ["packages/example-*"]
+      "ignoreChanges": [
+        "packages/example-*"
+      ]
     },
     "run": {
       "ignore": []
     }
   },
-  "version": "0.0.1"
+  "version": "0.0.2"
 }
