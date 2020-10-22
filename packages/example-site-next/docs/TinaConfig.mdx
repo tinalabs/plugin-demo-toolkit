@@ -1,0 +1,49 @@
+# TinaConfig
+
+In your mdx file we might want to export certain tina configuration. Its is really easy to do so. Simply add
+
+```js
+export const TinaConfig = {
+    //... tina configeration here
+}
+```
+To your mdx file. This will override any of the configuration in the global mdx file.
+
+For example when you went to this page you might have noticed that the sidebar and toolbar are enabled thats because the TinaConfig for this page looks like
+
+```js
+export const TinaConfig = {
+    enabled: true,
+    sidebar: true,
+    toolbar: true
+}
+```
+
+on the next page is an example showing how to you can access the cms object in MDX!
+
+export const code = `
+# TinaConfig
+In your mdx file we might want to export cretin tina configuration. Its is really easy to do so. Simply add
+\`\`\`js
+export const TinaConfig = {
+    //... tina configuration here
+}
+\`\`\`
+To your mdx file. This will override any of the configuration in the global mdx file.
+For example when you went to this page you might have noticed that the sidebar and toolbar are enabled thats because the TinaConfig for this page looks like
+\`\`\`js
+export const TinaConfig = {
+    enabled: true,
+    sidebar: true,
+    toolbar: true
+}
+\`\`\`
+on the next page is an example showing how to you can access the cms object in MDX!
+`
+
+
+export const TinaConfig = {
+    enabled: true,
+    sidebar: true,
+    toolbar: true
+}

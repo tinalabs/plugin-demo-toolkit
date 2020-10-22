@@ -1,6 +1,13 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "build": "lerna run build --reject-cycles",
+    "bootstrap": "lerna bootstrap --hoist --reject-cycles --force-local",
+    "postinstall": "npm run bootstrap",
+    "bs": "npm run bootstrap",
+    "dev": "lerna run dev --reject-cycles"
+  },
   "devDependencies": {
     "lerna": "^3.22.1"
   }

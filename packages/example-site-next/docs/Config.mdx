@@ -1,0 +1,50 @@
+# Config
+
+The config object is where you made all add all of the configuration for your doc site happen. It is made up of a couple of simple interfaces.
+
+```ts
+export interface DocumentConfig {
+  pages: Page[];
+  title: string;
+  LinkWrapper: React.FC<{ to: string }>;
+  tableOfContentsText?: string;
+  tinaConfig?: TinaCMSConfig;
+}
+
+export interface Page {
+  label: string;
+  slug: string;
+  filePath: string;
+}
+```
+
+an example might look like this
+
+```js
+export const CONFIG: DocumentConfig = {
+    LinkWrapper: ({to, children})=>{
+      if(to==='/'){
+          return <Link href={`/docs`} as={`/docs`}>{children}</Link>
+      }
+      return <Link href={`/docs/[slug]`} as={`/docs${to}`}>{children}</Link>
+    },
+    title: 'Tinacms Documentation Toolkit Docs',
+    pages: [
+        { filePath: "Intro" ,label: 'Intro',  slug: '/', },
+        { filePath: "GettingStarted" , label: 'Getting started',  slug: '/intro',},
+        { filePath: "LoadComponent" , label: 'Load Component',  slug: '/load-component',},
+        { filePath: "Config" , label: 'Config',  slug: '/config',},
+        { filePath: "MdxFiles" , label: 'MDX Files',  slug: '/mdx-files',},
+        { filePath: "TinaConfig" , label: 'Tina Config',  slug: '/tina-config',},
+    ],
+    tinaConfig: {
+      enabled: false,
+    }
+}
+```
+
+export const code = ''
+
+export const TinaConfig = {
+    enabled: false
+}

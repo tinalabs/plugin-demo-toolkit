@@ -5,14 +5,17 @@
 //   file: string;
 // }
 
-export type Page = BasePage;
+import { TinaCMSConfig } from "tinacms";
+
 export interface DocumentConfig {
   pages: Page[];
   title: string;
   LinkWrapper: React.FC<{ to: string }>;
+  tableOfContentsText?: string;
+  tinaConfig?: TinaCMSConfig;
 }
 
-interface BasePage {
+export interface Page {
   label: string;
   slug: string;
   filePath: string;
