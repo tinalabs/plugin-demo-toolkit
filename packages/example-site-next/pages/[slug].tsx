@@ -35,7 +35,6 @@ export const CONFIG: DocumentConfig = {
 const SlugPage = () => {
   const router = useRouter()
   const currentSlug = router.query.slug as string
-  console.log({currentSlug })
   if(router.isFallback || !currentSlug){
       return <div>Loading...</div>
   }
