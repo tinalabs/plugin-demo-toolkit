@@ -5738,6 +5738,14 @@ tinacms-doc-toolkit@0.0.3:
     prism-react-renderer "^1.1.1"
     react-syntax-highlighter "^15.2.1"
 
+"tinacms-doc-toolkit@file:../next-toolkit":
+  version "0.0.3"
+  dependencies:
+    "@mdx-js/react" "^1.6.19"
+    bloomer "^0.6.5"
+    prism-react-renderer "^1.1.1"
+    react-syntax-highlighter "^15.2.1"
+
 tinacms@^0.31.0:
   version "0.31.0"
   resolved "https://registry.yarnpkg.com/tinacms/-/tinacms-0.31.0.tgz#91fd61dc1b7652d877c89277aae06dc3b0e91f97"

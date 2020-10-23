@@ -104,7 +104,11 @@ export const Layout: React.FC<LayoutProps> = ({
                   </LinkWrapper>
                 )}
               </div>
-              <Code show={showCode}>{Component.code.toString() || ""}</Code>
+              <Code show={showCode}>
+                {typeof Component.code == "undefined"
+                  ? ""
+                  : Component.code.toString() || ""}
+              </Code>
             </div>
           </Column>
 
