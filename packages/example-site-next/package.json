@@ -1,6 +1,6 @@
 {
   "name": "example-site-next",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "scripts": {
     "dev": "next",
     "build": "next build",
@@ -20,7 +20,7 @@
     "remark-highlight.js": "^6.0.0",
     "styled-components": "^5.2.0",
     "tinacms": "^0.31.0",
-    "tinacms-doc-toolkit": "0.0.3"
+    "tinacms-doc-toolkit": "^0.0.4"
   },
   "devDependencies": {
     "@types/mdx-js__react": "^1.5.3",
