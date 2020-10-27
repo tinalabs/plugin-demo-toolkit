@@ -5728,18 +5728,10 @@ timers-browserify@^2.0.4:
   dependencies:
     setimmediate "^1.0.4"
 
-tinacms-doc-toolkit@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/tinacms-doc-toolkit/-/tinacms-doc-toolkit-0.0.3.tgz#b31fc47e3b54abac2bd1263964c305cd4f02ffd9"
-  integrity sha512-Qze1cZNbUfTR1hD1hghR9aU9LBHzGNO0W1tMuw6kDdarWkVLWCkekamyfTCWK39vwQtjx7MqjQ41M2tLKjr4gg==
-  dependencies:
-    "@mdx-js/react" "^1.6.19"
-    bloomer "^0.6.5"
-    prism-react-renderer "^1.1.1"
-    react-syntax-highlighter "^15.2.1"
-
-"tinacms-doc-toolkit@file:../next-toolkit":
-  version "0.0.3"
+tinacms-doc-toolkit@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/tinacms-doc-toolkit/-/tinacms-doc-toolkit-0.0.4.tgz#923e72164b78c202254f336f209e71fc03f72019"
+  integrity sha512-XUTeRkUmamqgGCEwSpgm3E/0gEVHvHKg20MmGEq1ArHTq/Gm5VaI12lSvMBQI167qNefc1RuauAWU6tmEJvZ4A==
   dependencies:
     "@mdx-js/react" "^1.6.19"
     bloomer "^0.6.5"

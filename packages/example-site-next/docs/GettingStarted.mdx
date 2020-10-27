@@ -1,40 +1,12 @@
 # Getting started
 
-geting started is pretty simple first you need to setup a basic layout.
+getting started is pretty simple first you need to setup a basic layout.
 
-In this example we will be using nextjs but it should also easiely translate to CRA or any react framwork
+There are three parts to main features of this site that we will look at in detail.
 
-
-fist we need to add `tinacms-doc-toolkit` to your project
-```bash
-yarn add tinacms-doc-toolkit
-```
-
-next lets make a basic slug page
-
-*`/[slug].tsx`*
-```js
-import Link from 'next/link'
-import {useRouter} from 'next/router'
-import { Layout } from 'next-tinacms-doc-toolkit'
-const SlugPage = () => {
-  const router = useRouter()
-  const currentSlug = router.query.slug as string
-  console.log({currentSlug })
-  if(router.isFallback || !currentSlug){
-      return <div>Loading...</div>
-  }
-  return <Layout currentSlug={'/'+currentSlug} config={CONFIG} loadComponent={loadComponent}/>
-}
-
-
-export default SlugPage
-```
-
-
-Notice we are missing a couple of things. We are missing `CONFIG` and `loadComponent`
-
-export const code = ''
+1. The config file
+2. The mdx file
+3. The TinaConfiguration 
 
 export const TinaConfig = {
     enabled: false

@@ -2,12 +2,26 @@
 
 Now that we have all of the configuration done we are ready to create mdx files. Simply make a file with the extension .mdx. You can now put markdown and JSX in this file. The name of this file is what you will pass to the config file.
 
+Lets create a new Page in `/docs/` called PageOne.mdx then in our config file we can add this line to add PageOne.mdx to your site.
 
+```ts
+const CONFIG: DocumentConfig = {
+    //...
+    pages: [
+        // ...
+          { filePath: "PageOne" , label: 'Test',  slug: '/test ',},
+    ],
+   //...
+}
+```
 
-export const code = `
-# MDX files
-Now that we have all of the configuration done we are ready to create mdx files. Simply make a file with the extension .mdx. You can now put markdown and JSX in this file. The name of this file is what you will pass to the config file.
-`
+We can also add a code block to our page by adding
+```js
+export const code = `let test = 'test'`
+```
+whatever is in this string will be added the code block at the bottom of the page. This code block will be can be toggled by clicking the 'show code' button
+
+export const code = `let test = 'test'`
 
 export const TinaConfig = {
     enabled: false

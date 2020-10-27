@@ -18,15 +18,18 @@ export interface Page {
 }
 ```
 
-an example might look like this
+If you open up `tina.config.tsx` you will see
 
 ```js
-export const CONFIG: DocumentConfig = {
+import Link from 'next/link'
+import {  DocumentConfig } from 'tinacms-doc-toolkit'
+
+const CONFIG: DocumentConfig = {
     LinkWrapper: ({to, children})=>{
       if(to==='/'){
-          return <Link href={`/docs`} as={`/docs`}>{children}</Link>
+          return <Link href={`/`} as={`/`}>{children}</Link>
       }
-      return <Link href={`/docs/[slug]`} as={`/docs${to}`}>{children}</Link>
+      return <Link href={`/[slug]`} as={`${to}`}>{children}</Link>
     },
     title: 'Tinacms Documentation Toolkit Docs',
     pages: [
@@ -41,7 +44,22 @@ export const CONFIG: DocumentConfig = {
       enabled: false,
     }
 }
+
+export default CONFIG
 ```
+
+This is the config file that drives the hole document site. It allows to define pages and a global TinaConfig.
+
+## Document config interface
+
+
+| Option              | Description                                                                                                                                                                                 |
+| :------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| `pages`               | An array of `page` objects                                                                                                                                                                  |
+|`title`               | The title of what you are documenting. This will be the header of the page                                                                                                                  |
+| `LinkWrapper`         | Router systems are not a concern of this plugin. One must pass there own `LinkWrapper` Components which is passed a prop called to. This component wraps the links in the table of contents |
+| `tableOfContentsText` | The title that is displayed over the table of contents side panel. This defaults to "Table of contents"  but can be used to override this text                                              |
+| `TinaConfig`          | The global TinaConfiguration that will be used for all mdx files. Defaults to {}. [See all options here.](https://tinacms.org/docs/cms/#cms-configuration)                                  |
 
 export const TinaConfig = {
     enabled: false
