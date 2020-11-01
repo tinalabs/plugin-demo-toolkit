@@ -1,1 +1,1 @@
-export * from "./useGetComponent";
+export * from "./useLoadComponent";

@@ -4,6 +4,7 @@
     "declaration": true,
     "target": "es5",
     "module": "esnext",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "jsx": "react",
     "lib": ["esnext", "dom"]
