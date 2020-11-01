@@ -2,11 +2,14 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "build": "lerna run build --reject-cycles",
-    "bootstrap": "lerna bootstrap --hoist --reject-cycles --force-local",
     "postinstall": "npm run bootstrap",
-    "bs": "npm run bootstrap",
-    "dev": "lerna run dev --reject-cycles"
+    "bootstrap": "lerna bootstrap --hoist --reject-cycles --force-local",
+    "dev": "lerna run dev --reject-cycles",
+    "build": "lerna run build --stream --reject-cycles",
+    "lint": "npx lerna run lint --stream --reject-cycles",
+    "test": "npx lerna run test --stream --reject-cycles",
+    "format": "npx lerna run format",
+    "bs": "npm run bootstrap"
   },
   "husky": {
     "hooks": {

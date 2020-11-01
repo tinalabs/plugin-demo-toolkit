@@ -9,14 +9,16 @@ import { CodeBlock } from "./CodeBlock";
 import Loader from "./Loader";
 import ErrorRenderer from "./ErrorRenderer";
 
-export interface DocumentConfig {
+export interface Config {
   pages: Page[];
   components: {
-    Link: React.FC<{ to: string }>,
-    Loading?: React.FC<unknown>,
-    RenderError?: React.FC<{error: Error}>
+    Link: React.FC<{ to: string }>;
+    Loading?: React.FC<unknown>;
+    RenderError?: React.FC<{ error: Error }>;
   };
-  tableOfContentsText?: string;
+  labels?: {
+    tableOfContentsTitle?: string;
+  };
   cmsToggle?: boolean;
   tinaConfig?: TinaCMSConfig;
 }
@@ -24,50 +26,47 @@ export interface DocumentConfig {
 export interface Page {
   label: string;
   slug: string;
-  loadComponent(): Promise<React.FC<unknown>>;
+  loadComponent: () => Promise<React.FC<unknown>>;
 }
 
 export const MDXComponents = {
-  pre: (props: any) => <div {...props} />,
+  pre: function pre(props: any) {
+    return <div {...props} />;
+  },
   code: CodeBlock,
 };
 
 export interface LayoutProps {
-  config: DocumentConfig;
+  config: Config;
   currentSlug: string;
 }
 
-export const Layout: React.FC<LayoutProps> = ({
-  config,
-  currentSlug
-}) => {
+export const Layout: React.FC<LayoutProps> = ({ config, currentSlug }) => {
   const { Link, Loading, RenderError } = config.components;
   const [showCode, setVisibility] = useState(false);
-  const foundPage = config.pages
-    .find((page) => page.slug === currentSlug);
+  const foundPage = config.pages.find((page) => page.slug === currentSlug);
 
   if (!foundPage) {
     throw Error(`did not find page with slug ${currentSlug}`);
   }
 
   const currentPage = foundPage;
-  const currentIndex = config.pages
-    .findIndex((page) => page === currentPage);
-  const { Component, loading, error } = useLoadComponent(currentPage.loadComponent);
+  const currentIndex = config.pages.findIndex((page) => page === currentPage);
+  const { Component, loading, error } = useLoadComponent(
+    currentPage.loadComponent
+  );
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const pageTinaConfig: TinaCMSConfig = Component.TinaConfig || {};
+  const pageTinaConfig: TinaCMSConfig = Component?.TinaConfig || {};
   const cms = new TinaCMS({
     ...config.tinaConfig,
-    ...pageTinaConfig
+    ...pageTinaConfig,
   });
 
   return (
     <>
-      {loading && (Loading && <Loading />) || Loader}
-      {error && (RenderError && <RenderError error={error} />) || (
-        <ErrorRenderer>
-          {error?.message || JSON.stringify(error)}
-        </ErrorRenderer>
+      {(loading && Loading && <Loading />) || Loader}
+      {(error && RenderError && <RenderError error={error} />) || (
+        <ErrorRenderer>{error?.message || JSON.stringify(error)}</ErrorRenderer>
       )}
       {Component && (
         <TinaProvider cms={cms}>
@@ -101,9 +100,9 @@ export const Layout: React.FC<LayoutProps> = ({
                     )}
                     {config.cmsToggle && (
                       <Button
-                      onClick={cms.toggle}
-                      type="button"
-                      className="button is-small"
+                        onClick={cms.toggle}
+                        type="button"
+                        className="button is-small"
                       >
                         Toggle Edit Mode
                       </Button>
@@ -136,7 +135,7 @@ export const Layout: React.FC<LayoutProps> = ({
               </Column>
 
               <Column isSize="1/4">
-                {config.tableOfContentsText || "Table of Contents"}
+                {config.labels?.tableOfContentsTitle || "Table of Contents"}
                 <ol style={{ marginTop: 20 }}>
                   {config.pages.map((page) => {
                     return (
