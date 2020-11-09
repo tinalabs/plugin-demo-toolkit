@@ -5,6 +5,7 @@ import { Button } from "bloomer/lib/elements/Button";
 import { useLoadComponent } from "../hooks";
 import Code from "./Code.js";
 import { NavItem } from "./NavItem";
+import { CodeBlock } from "./CodeBlock";
 import Loader from "./Loader";
 import ErrorRenderer from "./ErrorRenderer";
 
@@ -27,6 +28,13 @@ export interface Page {
   slug: string;
   loadComponent: () => Promise<React.FC<unknown>>;
 }
+
+export const MDXComponents = {
+  pre: function pre(props: any) {
+    return <div {...props} />;
+  },
+  code: CodeBlock,
+};
 
 export interface LayoutProps {
   config: Config;
@@ -73,7 +81,7 @@ export const Layout: React.FC<LayoutProps> = ({ config, currentSlug }) => {
           >
             <Columns>
               <Column isSize="3/4">
-                <Component />
+                <Component.default />
                 <div style={{ marginRight: "0px", marginTop: "40px" }}>
                   <div
                     style={{
