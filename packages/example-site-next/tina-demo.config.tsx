@@ -1,37 +1,38 @@
 import Link from "next/link";
-import { Config } from "tinacms-doc-toolkit";
+import { Config  } from "tinacms-doc-toolkit";
+
 
 export const DemoConfig: Config = {
   pages: [
     {
       label: "Intro",
       slug: "/",
-      loadComponent: async () => (await import("./docs/Intro.mdx")).default,
+      loadPage: import("./docs/Intro.mdx"),
     },
     {
       label: "Getting started",
       slug: "/intro",
-      loadComponent: async () => (await import("./docs/GettingStarted.mdx")).default,
+      loadPage: import("./docs/GettingStarted.mdx"),
     },
     {
       label: "Config",
       slug: "/config",
-      loadComponent: async () => (await import("./docs/Config.mdx")).default,
+      loadPage: import("./docs/Config.mdx"),
     },
     {
       label: "MDX Files",
       slug: "/mdx-files",
-      loadComponent: async () => (await import("./docs/MdxFiles.mdx")).default,
+      loadPage: import("./docs/MdxFiles.mdx"),
     },
     {
       label: "Tina Config",
       slug: "/tina-config",
-      loadComponent: async () => (await import("./docs/TinaConfig.mdx")).default,
+      loadPage: import("./docs/TinaConfig.mdx"),
     },
     {
       label: "CMS object",
       slug: "/cms",
-      loadComponent: async () => (await import("./docs/CmsObject.mdx")).default,
+      loadPage: import("./docs/CmsObject.mdx"),
     },
   ],
   tinaConfig: {

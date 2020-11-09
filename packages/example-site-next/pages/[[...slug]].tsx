@@ -1,3 +1,5 @@
+import {MDXProvider} from '@mdx-js/react'
+import {CodeBlock} from 'tinacms-doc-toolkit'
 import {useRouter} from 'next/router'
 import { Layout, Loader } from 'tinacms-doc-toolkit'
 import Config from '../tina-demo.config'
@@ -12,10 +14,22 @@ export function SlugHandler() {
   }
 
   return (
-    <Layout currentSlug={currentSlug} config={Config}>
-      <Loader />
-    </Layout>
+    <MDXProvider components={components}>
+      <Layout currentSlug={currentSlug} config={Config}>
+        <Loader />
+      </Layout>
+    </MDXProvider>
   )
 }
+
+
+const components = {
+  pre: (props: any) => {
+        return <div {...props} />;
+    },
+  code: CodeBlock
+}
+
+
 
 export default SlugHandler;

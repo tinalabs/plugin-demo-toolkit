@@ -1,1 +1,1 @@
-export * from "./useLoadComponent";
+export * from "./useLoadPage";

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TinaCMS, TinaCMSConfig, TinaProvider } from "tinacms";
 import { Container, Columns, Column } from "bloomer";
 import { Button } from "bloomer/lib/elements/Button";
-import { useLoadComponent } from "../hooks";
+import { useLoadPage } from "../hooks";
 import Code from "./Code.js";
 import { NavItem } from "./NavItem";
 import { CodeBlock } from "./CodeBlock";
@@ -23,10 +23,16 @@ export interface Config {
   tinaConfig?: TinaCMSConfig;
 }
 
+export interface DemoPage {
+  default: React.FC<unknown>;
+  code?: string;
+  tinaConfig?: TinaCMSConfig;
+}
+
 export interface Page {
   label: string;
   slug: string;
-  loadComponent: () => Promise<React.FC<unknown>>;
+  loadPage: Promise<unknown>;
 }
 
 export const MDXComponents = {
@@ -42,9 +48,12 @@ export interface LayoutProps {
 }
 
 export const Layout: React.FC<LayoutProps> = ({ config, currentSlug }) => {
+  const cleanCurrentSlug = currentSlug.startsWith("/")
+    ? currentSlug
+    : "/" + currentSlug;
   const { Link, Loading, RenderError } = config.components;
   const [showCode, setVisibility] = useState(false);
-  const foundPage = config.pages.find((page) => page.slug === currentSlug);
+  const foundPage = config.pages.find((page) => page.slug === cleanCurrentSlug);
 
   if (!foundPage) {
     throw Error(`did not find page with slug ${currentSlug}`);
@@ -52,11 +61,11 @@ export const Layout: React.FC<LayoutProps> = ({ config, currentSlug }) => {
 
   const currentPage = foundPage;
   const currentIndex = config.pages.findIndex((page) => page === currentPage);
-  const { Component, loading, error } = useLoadComponent(
-    currentPage.loadComponent
+  const [Page, loading, error] = useLoadPage(
+    currentPage.loadPage as Promise<DemoPage>
   );
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const pageTinaConfig: TinaCMSConfig = Component?.TinaConfig || {};
+  const pageTinaConfig: TinaCMSConfig = Page?.tinaConfig || {};
   const cms = new TinaCMS({
     ...config.tinaConfig,
     ...pageTinaConfig,
@@ -68,7 +77,7 @@ export const Layout: React.FC<LayoutProps> = ({ config, currentSlug }) => {
       {(error && RenderError && <RenderError error={error} />) || (
         <ErrorRenderer>{error?.message || JSON.stringify(error)}</ErrorRenderer>
       )}
-      {Component && (
+      {Page && (
         <TinaProvider cms={cms}>
           <Container
             style={{
@@ -81,7 +90,7 @@ export const Layout: React.FC<LayoutProps> = ({ config, currentSlug }) => {
           >
             <Columns>
               <Column isSize="3/4">
-                <Component.default />
+                <Page.default />
                 <div style={{ marginRight: "0px", marginTop: "40px" }}>
                   <div
                     style={{
@@ -107,7 +116,7 @@ export const Layout: React.FC<LayoutProps> = ({ config, currentSlug }) => {
                         Toggle Edit Mode
                       </Button>
                     )}
-                    {Component.code && (
+                    {Page.code && (
                       <Button
                         type="button"
                         className="button is-small"
@@ -127,9 +136,9 @@ export const Layout: React.FC<LayoutProps> = ({ config, currentSlug }) => {
                     )}
                   </div>
                   <Code show={showCode}>
-                    {typeof Component.code == "undefined"
+                    {typeof Page.code == "undefined"
                       ? ""
-                      : Component.code.toString() || ""}
+                      : Page.code.toString() || ""}
                   </Code>
                 </div>
               </Column>
