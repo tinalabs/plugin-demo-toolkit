@@ -1,10 +1,9 @@
-// import {useCMS} from 'tinacms'
-// export const Test = ()=>{
-//     // const cms = useCMS()
-//     // console.log({cms})
-//     // cms.api.user.sayHi()
-//     return (<div>This is the first page</div>)
-// }
+import {useCMS} from 'tinacms'
+export const Test = ()=>{
+         const cms = useCMS()   // console.log({cms})
+     cms.api.user.sayHi()
+    return (<div>This is the first page</div>)
+}
 
 # Hello 👋  and welcome to the Tinacms Documentation toolkit Docs
 
@@ -13,27 +12,26 @@
 This short guide will help you get up and running with our Documentation toolkit
 
 
-// export class User {
-//   constructor(name) {
-//     this.name = name;
-//   }
-//   sayHi() {
-//     alert('Hello! ' + this.name);
-//   }
-// }
+export class User {
+  constructor(name) {
+    this.name = name;
+  }
+  sayHi() {
+    alert('Hello! ' + this.name);
+  }
+}
+export const TinaConfig = {
+     enabled: false,
+     toolbar: true,
+     sidebar: true,
+     apis: {
+         user: new User('logan')
+     }
+}
 
-// export const TinaConfig = {
-//     enabled: false,
-//     toolbar: true,
-//     sidebar: true,
-    // apis: {
-    //     user: new User('logan')
-    // }
-//}
-
-// export const code = `
-// let x = 'this is a test'
-// # Hello 👋  and welcome to the Tinacms Documentation toolkit Docs
-// > (Wow thats a mouthful)
-// This short guide will help you get up and running with our Documenting toolkit
-// `
+export const code = `
+let x = 'this is a test'
+# Hello 👋  and welcome to the Tinacms Documentation toolkit Docs
+> (Wow thats a mouthful)
+This short guide will help you get up and running with our Documenting toolkit
+`

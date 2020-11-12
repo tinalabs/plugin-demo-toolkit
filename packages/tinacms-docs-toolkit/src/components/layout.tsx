@@ -8,6 +8,12 @@ import { NavItem } from "./NavItem";
 import { CodeBlock } from "./CodeBlock";
 import Loader from "./Loader";
 import ErrorRenderer from "./ErrorRenderer";
+import DocsRichText from "./RichText";
+import styled from "styled-components";
+const TextWrapper = styled.div`
+  ${DocsRichText}
+  min-height: 68vh;
+`;
 
 export interface Config {
   pages: Page[];
@@ -71,26 +77,44 @@ export const Layout: React.FC<LayoutProps> = ({ config, currentSlug }) => {
     ...pageTinaConfig,
   });
 
+  const ErrorHandler = (RenderError || ErrorRenderer) as React.FC<
+    React.PropsWithChildren<any>
+  >;
+  const errorMessage = error?.message || JSON.stringify(error);
+
   return (
     <>
       {(loading && Loading && <Loading />) || Loader}
-      {(error && RenderError && <RenderError error={error} />) || (
-        <ErrorRenderer>{error?.message || JSON.stringify(error)}</ErrorRenderer>
-      )}
+      {errorMessage && <ErrorHandler>{errorMessage}</ErrorHandler>}
       {Page && (
         <TinaProvider cms={cms}>
-          <Container
+          <div
             style={{
               marginTop: 40,
               marginBottom: 40,
               paddingLeft: 40,
               paddingRight: 40,
-              maxWidth: 1000,
+              maxWidth: "px",
+              margin: "0 auto",
             }}
           >
-            <Columns>
-              <Column isSize="3/4">
-                <Page.default />
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(4, 1fr)",
+                gap: "10px",
+                gridAutoRows: "minmax(100px, auto)",
+              }}
+            >
+              <div
+                style={{
+                  gridColumn: "1/4",
+                  gridRow: "1",
+                }}
+              >
+                <TextWrapper>
+                  <Page.default />
+                </TextWrapper>
                 <div style={{ marginRight: "0px", marginTop: "40px" }}>
                   <div
                     style={{
@@ -141,9 +165,14 @@ export const Layout: React.FC<LayoutProps> = ({ config, currentSlug }) => {
                       : Page.code.toString() || ""}
                   </Code>
                 </div>
-              </Column>
+              </div>
 
-              <Column isSize="1/4">
+              <div
+                style={{
+                  gridColumn: "4/5",
+                  gridRow: "1",
+                }}
+              >
                 {config.labels?.tableOfContentsTitle || "Table of Contents"}
                 <ol style={{ marginTop: 20 }}>
                   {config.pages.map((page) => {
@@ -159,13 +188,26 @@ export const Layout: React.FC<LayoutProps> = ({ config, currentSlug }) => {
                     );
                   })}
                 </ol>
-              </Column>
-            </Columns>
-          </Container>
+              </div>
+            </div>
+          </div>
         </TinaProvider>
       )}
     </>
   );
 };
+
+/*
+ * STYLES --------------------------------------------------------------
+ */
+
+export const DocGridToc = styled.div`
+  grid-area: toc;
+  width: 100%;
+
+  @media (min-width: 830px) {
+    padding-top: 4.5rem;
+  }
+`;
 
 export default Layout;
