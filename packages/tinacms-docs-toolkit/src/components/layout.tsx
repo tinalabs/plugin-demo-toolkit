@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { TinaCMS, TinaCMSConfig, TinaProvider } from "tinacms";
-import { Container, Columns, Column } from "bloomer";
-import { Button } from "bloomer/lib/elements/Button";
+import { Button } from "@tinacms/styles";
 import { useLoadPage } from "../hooks";
 import Code from "./Code.js";
 import { NavItem } from "./NavItem";
@@ -9,8 +8,13 @@ import { CodeBlock } from "./CodeBlock";
 import Loader from "./Loader";
 import ErrorRenderer from "./ErrorRenderer";
 import DocsRichText from "./RichText";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+const GlobalText = css`
+  --tina-color-primary: #2296fe;
+  --color-primary: #ec4815;
+`;
 const TextWrapper = styled.div`
+  ${GlobalText}
   ${DocsRichText}
   min-height: 68vh;
 `;
