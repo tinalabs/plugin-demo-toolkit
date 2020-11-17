@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { TinaCMS, TinaCMSConfig, TinaProvider } from "tinacms";
 import { Button } from "@tinacms/styles";
 import { useLoadPage } from "../hooks";
-import Code from "./Code.js";
 import { NavItem } from "./NavItem";
 import { CodeBlock } from "./CodeBlock";
 import Loader from "./Loader";
@@ -10,7 +9,6 @@ import ErrorRenderer from "./ErrorRenderer";
 import DocsRichText from "./RichText";
 import styled, { css } from "styled-components";
 const GlobalText = css`
-  --tina-color-primary: #2296fe;
   --color-primary: #ec4815;
 `;
 const TextWrapper = styled.div`
@@ -163,11 +161,13 @@ export const Layout: React.FC<LayoutProps> = ({ config, currentSlug }) => {
                       </Link>
                     )}
                   </div>
-                  <Code show={showCode}>
-                    {typeof Page.code == "undefined"
-                      ? ""
-                      : Page.code.toString() || ""}
-                  </Code>
+                  {showCode && (
+                    <CodeBlock className="js">
+                      {typeof Page.code == "undefined"
+                        ? ""
+                        : Page.code.toString() || ""}
+                    </CodeBlock>
+                  )}
                 </div>
               </div>
 
