@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import { TinaCMS, TinaCMSConfig, TinaProvider } from "tinacms";
 import { Button } from "@tinacms/styles";
 import { useLoadPage } from "../hooks";
-import { NavItem } from "./NavItem";
 import { CodeBlock } from "./CodeBlock";
 import Loader from "./Loader";
 import ErrorRenderer from "./ErrorRenderer";
-import DocsRichText from "./RichText";
 import styled, { css } from "styled-components";
-import { DocsTextWrapper } from "./tinaioStyles/DocsTextWrapper";
+import { DocsTextWrapper, GlobalStyle } from "./tinaioStyles/DocsTextWrapper";
 import Toc from "./tinaioStyles/toc";
 
 export interface Config {
@@ -84,132 +82,73 @@ export const Layout: React.FC<LayoutProps> = ({ config, currentSlug }) => {
       {(loading && Loading && <Loading />) || Loader}
       {errorMessage && <ErrorHandler>{errorMessage}</ErrorHandler>}
       {Page && (
-        <TinaProvider cms={cms}>
-          <div
-            style={{
-              marginTop: 40,
-              marginBottom: 40,
-              paddingLeft: 40,
-              paddingRight: 40,
-              maxWidth: "px",
-              margin: "0 auto",
-            }}
-          >
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(4, 1fr)",
-                gap: "10px",
-                gridAutoRows: "minmax(100px, auto)",
-              }}
-            >
-              <div
-                style={{
-                  gridColumn: "1/4",
-                  gridRow: "1",
-                }}
-              >
-                {/* <DocsLayout>
-                  <TextWrapper>
+        <>
+          <GlobalStyle />
+          <TinaProvider cms={cms}>
+            <DocsLayout>
+              <DocsGrid>
+                <DocGridToc>
+                  <Toc config={config} currentPage={currentPage} />
+                </DocGridToc>
+                <DocGridContent>
+                  <DocsTextWrapper>
                     <Page.default />
-                  </TextWrapper>
-                </DocsLayout> */}
-                <DocsLayout>
-                  <DocsGrid>
-                    <DocGridToc>
-                      <Toc tocItems={["first-steps", "getting-help"]} />
-                    </DocGridToc>
-                    <DocGridContent>
-                      <Page.default />
-                      {/* {(props.prevPage?.slug !== null ||
+                  </DocsTextWrapper>
+
+                  {/* {(props.prevPage?.slug !== null ||
                         props.nextPage?.slug !== null) && (
                         <DocsPagination
                           prevPage={props.prevPage}
                           nextPage={props.nextPage}
                         />
                       )} */}
-                    </DocGridContent>
-                  </DocsGrid>
-                </DocsLayout>
-                <div style={{ marginRight: "0px", marginTop: "40px" }}>
-                  <div
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    {config.pages[currentIndex - 1] && (
-                      <Link to={config.pages[currentIndex - 1].slug}>
-                        <Button type="button" className="button is-small">
-                          Previous
-                        </Button>
-                      </Link>
-                    )}
-                    {config.cmsToggle && (
-                      <Button
-                        onClick={cms.toggle}
-                        type="button"
-                        className="button is-small"
-                      >
-                        Toggle Edit Mode
-                      </Button>
-                    )}
-                    {Page.code && (
-                      <Button
-                        type="button"
-                        className="button is-small"
-                        onClick={() => {
-                          setVisibility(!showCode);
-                        }}
-                      >
-                        {showCode ? "Close Code" : "Show Code"}
-                      </Button>
-                    )}
-                    {config.pages[currentIndex + 1] && (
-                      <Link to={config.pages[currentIndex + 1].slug}>
-                        <Button type="button" className="button is-small">
-                          Next
-                        </Button>
-                      </Link>
-                    )}
-                  </div>
-                  {showCode && (
-                    <CodeBlock className="js">
-                      {typeof Page.code == "undefined"
-                        ? ""
-                        : Page.code.toString() || ""}
-                    </CodeBlock>
-                  )}
-                </div>
-              </div>
+                </DocGridContent>
+              </DocsGrid>
+            </DocsLayout>
 
-              <div
-                style={{
-                  gridColumn: "4/5",
-                  gridRow: "1",
+            {config.pages[currentIndex - 1] && (
+              <Link to={config.pages[currentIndex - 1].slug}>
+                <Button type="button" className="button is-small">
+                  Previous
+                </Button>
+              </Link>
+            )}
+            {config.cmsToggle && (
+              <Button
+                onClick={cms.toggle}
+                type="button"
+                className="button is-small"
+              >
+                Toggle Edit Mode
+              </Button>
+            )}
+            {Page.code && (
+              <Button
+                type="button"
+                className="button is-small"
+                onClick={() => {
+                  setVisibility(!showCode);
                 }}
               >
-                {config.labels?.tableOfContentsTitle || "Table of Contents"}
-                <ol style={{ marginTop: 20 }}>
-                  {config.pages.map((page) => {
-                    return (
-                      <NavItem
-                        active={page.slug === currentPage.slug}
-                        key={page.slug}
-                      >
-                        <Link to={page.slug}>
-                          <li>{page.label}</li>
-                        </Link>
-                      </NavItem>
-                    );
-                  })}
-                </ol>
-              </div>
-            </div>
-          </div>
-        </TinaProvider>
+                {showCode ? "Close Code" : "Show Code"}
+              </Button>
+            )}
+            {config.pages[currentIndex + 1] && (
+              <Link to={config.pages[currentIndex + 1].slug}>
+                <Button type="button" className="button is-small">
+                  Next
+                </Button>
+              </Link>
+            )}
+            {showCode && (
+              <CodeBlock className="js">
+                {typeof Page.code == "undefined"
+                  ? ""
+                  : Page.code.toString() || ""}
+              </CodeBlock>
+            )}
+          </TinaProvider>
+        </>
       )}
     </>
   );
@@ -233,9 +172,7 @@ interface DocsLayoutProps {
 const DocsLayout = ({ children }: DocsLayoutProps) => {
   return (
     <>
-      <DocsLayoutDiv>
-        <DocsTextWrapper>{children}</DocsTextWrapper>
-      </DocsLayoutDiv>
+      <DocsLayoutDiv>{children}</DocsLayoutDiv>
     </>
   );
 };
