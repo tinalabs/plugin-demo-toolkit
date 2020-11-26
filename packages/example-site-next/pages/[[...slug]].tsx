@@ -4,6 +4,7 @@ import {useRouter} from 'next/router'
 import { Layout, Loader } from 'tinacms-doc-toolkit'
 import Config from '../tina-demo.config'
 
+
 export function SlugHandler() {
   const router = useRouter()
   const slug = typeof router.query.slug == 'undefined' ? "/" : router.query.slug 
@@ -28,6 +29,25 @@ const components = {
         return <div {...props} />;
     },
   code: CodeBlock
+}
+
+export const getStaticProps=()=>{
+  return {props: {}}
+}
+export const getStaticPaths=()=>{
+  const paths = Config.pages.map(page=>{
+    return {
+      params: {
+        slug: [page.slug.replace('/', '')]
+      }
+    }
+    
+  })
+  console.dir(paths)
+  return {
+    paths,
+    fallback: false
+  }
 }
 
 
