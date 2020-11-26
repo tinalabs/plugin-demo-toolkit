@@ -10,7 +10,7 @@
     "test": "npx lerna run test --stream --reject-cycles",
     "format": "npx lerna run format",
     "bs": "npm run bootstrap",
-    "gh-pages": "gh-pages -d packages/example-site-next/out",
+    "gh-pages": "npm run bs && npm run build:static && gh-pages -d ./packages/example-site-next/out",
     "build:static": "lerna run export --stream --reject-cycles --scope example-site-next"
   },
   "husky": {
