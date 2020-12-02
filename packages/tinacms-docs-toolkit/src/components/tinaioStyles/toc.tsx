@@ -1,8 +1,7 @@
 import { NavItem } from "../NavItem";
-import React, { useState, useEffect } from "react";
-import ReactMarkdown from "react-markdown";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
-import { Config, Page } from "../layout";
+import { Config, Page } from "../Layout";
 // import RightArrowSvg from "../../public/svg/right-arrow.svg";
 
 interface TocProps {
