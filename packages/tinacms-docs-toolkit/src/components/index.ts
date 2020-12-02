@@ -1,3 +1,3 @@
-export * from "./Layout";
+export * from "./DocsLayout";
 export * from "./Loader";
 export * from "./CodeBlock";
