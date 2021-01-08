@@ -44,6 +44,7 @@
     "@mdx-js/loader": "^1.6.18",
     "@mdx-js/react": "^1.6.19",
     "@next/mdx": "^9.5.5",
+    "@tinacms/styles": "^0.33.0",
     "bloomer": "^0.6.5",
     "prism-react-renderer": "^1.1.1",
     "react-syntax-highlighter": "^15.2.1",

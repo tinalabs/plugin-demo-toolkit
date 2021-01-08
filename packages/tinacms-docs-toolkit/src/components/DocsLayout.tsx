@@ -8,6 +8,7 @@ import ErrorRenderer from "./ErrorRenderer";
 import styled, { css } from "styled-components";
 import { DocsTextWrapper, GlobalStyle } from "./tinaioStyles/DocsTextWrapper";
 import Toc from "./tinaioStyles/toc";
+import Pagination from "./Pagination";
 
 export interface Config {
   pages: Page[];
@@ -94,59 +95,41 @@ export const Layout: React.FC<LayoutProps> = ({ config, currentSlug }) => {
                   <DocsTextWrapper>
                     <Page.default />
                   </DocsTextWrapper>
-
-                  {/* {(props.prevPage?.slug !== null ||
-                        props.nextPage?.slug !== null) && (
-                        <DocsPagination
-                          prevPage={props.prevPage}
-                          nextPage={props.nextPage}
-                        />
-                      )} */}
+                  {config.cmsToggle && (
+                    <Button
+                      onClick={cms.toggle}
+                      type="button"
+                      className="button is-small"
+                    >
+                      Toggle Edit Mode
+                    </Button>
+                  )}
+                  {Page.code && (
+                    <Button
+                      type="button"
+                      className="button is-small"
+                      onClick={() => {
+                        setVisibility(!showCode);
+                      }}
+                    >
+                      {showCode ? "Close Code" : "Show Code"}
+                    </Button>
+                  )}
+                  {showCode && (
+                    <CodeBlock className="js">
+                      {typeof Page.code == "undefined"
+                        ? ""
+                        : Page.code.toString() || ""}
+                    </CodeBlock>
+                  )}
+                  <Pagination
+                    prevPage={config.pages[currentIndex - 1]}
+                    nextPage={config.pages[currentIndex + 1]}
+                    Link={Link}
+                  />
                 </DocGridContent>
               </DocsGrid>
             </DocsLayout>
-
-            {config.pages[currentIndex - 1] && (
-              <Link to={config.pages[currentIndex - 1].slug}>
-                <Button type="button" className="button is-small">
-                  Previous
-                </Button>
-              </Link>
-            )}
-            {config.cmsToggle && (
-              <Button
-                onClick={cms.toggle}
-                type="button"
-                className="button is-small"
-              >
-                Toggle Edit Mode
-              </Button>
-            )}
-            {Page.code && (
-              <Button
-                type="button"
-                className="button is-small"
-                onClick={() => {
-                  setVisibility(!showCode);
-                }}
-              >
-                {showCode ? "Close Code" : "Show Code"}
-              </Button>
-            )}
-            {config.pages[currentIndex + 1] && (
-              <Link to={config.pages[currentIndex + 1].slug}>
-                <Button type="button" className="button is-small">
-                  Next
-                </Button>
-              </Link>
-            )}
-            {showCode && (
-              <CodeBlock className="js">
-                {typeof Page.code == "undefined"
-                  ? ""
-                  : Page.code.toString() || ""}
-              </CodeBlock>
-            )}
           </TinaProvider>
         </>
       )}
