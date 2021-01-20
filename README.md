@@ -2,14 +2,13 @@
 
 ## Getting started 
 
-1. Clone the example repo
-`npx create-next-app --example https://github.com/tinalabs/plugin-demo-toolkit/tree/master/packages/example-site-next docs`
+1. Create a new docs site: `npx create-next-app --example https://github.com/tinalabs/plugin-demo-toolkit/tree/master/packages/example-site-next docs`
 
-2. `cd docs`
+2. Then navigate to the docs site: `cd docs`
 
-3. `yarn dev`
+3. And start the dev server and follow the on-screen instructions: `npm run dev`
 
-You can see the instructions for getting started in the [documentation for this toolkit](./https://tinalabs.github.io/tinacms-doc-toolkit/).
+You can see further instructions for getting started and using the toolkit in the [documentation](./https://tinalabs.github.io/tinacms-doc-toolkit/).
 
 > ## Note
 >
