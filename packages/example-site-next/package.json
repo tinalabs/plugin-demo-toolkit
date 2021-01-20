@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "example-site-next",
   "version": "0.0.5",
   "scripts": {
