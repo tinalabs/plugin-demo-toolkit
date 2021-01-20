@@ -8,7 +8,7 @@
 
 3. And start the dev server and follow the on-screen instructions: `npm run dev`
 
-You can see further instructions for getting started and using the toolkit in the [documentation](./https://tinalabs.github.io/tinacms-doc-toolkit/).
+You can see further instructions for getting started and using the toolkit in the [documentation](https://tinalabs.github.io/tinacms-doc-toolkit/).
 
 > ## Note
 >
