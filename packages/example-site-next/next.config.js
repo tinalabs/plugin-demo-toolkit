@@ -9,8 +9,14 @@ const PAGES = glob.sync(`${CONTENT_DIR}/**/*.mdx`)
   .map(pagePath => pagePath
     .replace(CONTENT_DIR, '') // Make relative
     .replace(/\.mdx$/, '') // Remove extension
-    .replace(/index$/, '') // Remove trailing index
-  );
+  )
+  .sort((a, b) => { 
+    // Sort alphabetically, giving priority to index
+    if (a.endsWith("/index")) return -1;
+    if(a < b) { return -1; }
+    if(a > b) { return 1; }
+    return 0;
+  });
 
 module.exports = configureNext({
   env: {
