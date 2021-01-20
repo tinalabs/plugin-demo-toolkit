@@ -6,3 +6,4 @@ packages/**/yarn.lock
 packages/**/package-lock.json
 packages/**/yalc.lock
 packages/**/.yalc
+*.log
