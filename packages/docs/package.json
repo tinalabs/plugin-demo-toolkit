@@ -1,5 +1,6 @@
 {
-  "name": "example-site-next",
+  "private": true,
+  "name": "docs",
   "version": "0.0.5",
   "scripts": {
     "dev": "next",
@@ -19,7 +20,6 @@
     "tinacms-doc-toolkit": "^0.0.5"
   },
   "devDependencies": {
-    "@types/glob": "^7.1.3",
     "@types/node": "^12.12.21",
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.4",

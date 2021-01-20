@@ -1,40 +1,26 @@
 import Link from "next/link";
-import { Config  } from "tinacms-doc-toolkit";
+import { Config } from "tinacms-doc-toolkit";
+import { join } from "path";
+import glob from "glob";
 
+const CONTENT_DIR = join(process.cwd(), "./content");
+const PAGES = glob.sync(`${CONTENT_DIR}/**/*.mdx`)
+  .map(pagePath => {
+    const relativePath = pagePath.replace(CONTENT_DIR, '');
+    const slug = relativePath.startsWith('index.mdx')
+      ? "Introduction" // Use introduction for root page
+      : pagePath.replace(CONTENT_DIR, '').replace("index.mdx", '').replace('.mdx', ''); // Use page path as slug
+    const label = slug.replace(/\/([a-Z]{1})/, (value) => value.toUpperCase()); // Capital case slug
+
+    return {
+      label,
+      slug,
+      loadPage: import(pagePath)
+    }
+  });
 
 export const DemoConfig: Config = {
-  pages: [
-    {
-      label: "Intro",
-      slug: "/",
-      loadPage: import("./docs/Intro.mdx"),
-    },
-    {
-      label: "Getting started",
-      slug: "/intro",
-      loadPage: import("./docs/GettingStarted.mdx"),
-    },
-    {
-      label: "Config",
-      slug: "/config",
-      loadPage: import("./docs/Config.mdx"),
-    },
-    {
-      label: "MDX Files",
-      slug: "/mdx-files",
-      loadPage: import("./docs/MdxFiles.mdx"),
-    },
-    {
-      label: "Tina Config",
-      slug: "/tina-config",
-      loadPage: import("./docs/TinaConfig.mdx"),
-    },
-    {
-      label: "CMS object",
-      slug: "/cms",
-      loadPage: import("./docs/CmsObject.mdx"),
-    },
-  ],
+  pages: PAGES,
   tinaConfig: {
     enabled: true,
   },
