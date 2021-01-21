@@ -2,7 +2,7 @@
 
 ## Getting started 
 
-1. Create a new docs site: `npx create-next-app --example https://github.com/tinalabs/plugin-doc-toolkit/tree/master/packages/example-site-next docs`
+1. Create a new docs site: `npx create-next-app --example https://github.com/tinalabs/tinacms-doc-toolkit/tree/master/packages/example-site-next docs`
 
 2. Then navigate to the docs site: `cd docs`
 
