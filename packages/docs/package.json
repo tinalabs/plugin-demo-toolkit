@@ -8,7 +8,7 @@
     "start": "next start",
     "export": "npm run build && next export",
     "type-check": "tsc",
-    "gh-pages": "npm run export && gh-pages -d ./out"
+    "gh-pages": "npm run export && gh-pages --dist ./out --dotfiles"
   },
   "dependencies": {
     "bulma": "^0.9.1",
